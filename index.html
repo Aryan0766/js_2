@@ -9,6 +9,7 @@
         width: 120px;
         position: absolute;
         background: magenta;
+        box-shadow: 5px 10px ;
 
       }
     </style>
@@ -16,5 +17,36 @@
   <body>
     <div id="ball">
     </div>
+    <script>
+      let nameObj ="Ball" //string
+      let speed = 1 ; //number global variable
+      let moving = true; //boolen global variable
+      
+      let x = 100;
+      let y = 100;
+       let dx = speed;
+      let dy = speed;
+      
+      function moveball () {
+        if(moving)
+          x += dx;
+        y +=dy;
+          if(x > window.innerWidth - 50 || x < 0){
+          dx = -dx;
+        }
+        if (y > window.innerHeight - 50 || y < 0){
+          dy = -dy
+        }
+        ball.style.left = x + "px";
+        ball.style.top = y + "px";
+      }
+      function showInfo () {
+        console.log(nameObj, speed, moving);
+        
+      }
+      showInfo();
+      setInterval(moveBall,20);
+
+    </script>
   </body>
 </html>
