@@ -3,14 +3,43 @@
   <head>
     <title>Untitled</title>
     <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+
       #ball {
         border-radius: 50%;
         height: 120px;
         width: 120px;
         position: absolute;
         background: magenta;
-        box-shadow: 5px 10px ;
+        box-shadow: 5px 10px purple;
+      }
 
+      /* Eyes */
+      #ball::before {
+        content: "";
+        position: absolute;
+        top: 38px;
+        left: 30px;
+        width: 16px;
+        height: 16px;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 44px 0 0 white;
+      }
+
+      /* Smile */
+      #ball::after {
+        content: "";
+        position: absolute;
+        top: 62px;
+        left: 30px;
+        width: 60px;
+        height: 28px;
+        border-bottom: 5px solid white;
+        border-radius: 0 0 60px 60px;
       }
     </style>
   </head>
@@ -18,34 +47,46 @@
     <div id="ball">
     </div>
     <script>
-      let nameObj ="Ball" //string
-      let speed = 1 ; //number global variable
-      let moving = true; //boolen global variable
-      
+      let nameObj = "Ball"; //string
+      let speed = 3; //number global variable
+      let moving = true; //boolean global variable
+
       let x = 100;
-      let y = 100;
-       let dx = speed;
-      let dy = speed;
-      
+      let y = 250;
+      let dx = speed;
+
+      let colors = ["magenta", "skyblue", "orange", "limegreen"]; //array of strings
+      let colorIndex = 0;
+
+      // grab the HTML elements so JavaScript can use them
+      let ball = document.getElementById("ball");
+
+      // FUNCTION 1: moves the ball sideways and bounces off the left/right edges
       function moveball () {
-        if(moving)
+        if (moving) {
           x += dx;
-        y +=dy;
-          if(x > window.innerWidth - 50 || x < 0){
-          dx = -dx;
         }
-        if (y > window.innerHeight - 50 || y < 0){
-          dy = -dy
+        if (x > window.innerWidth - 120 || x < 0) {
+          dx = -dx;
+          changeColor();
         }
         ball.style.left = x + "px";
         ball.style.top = y + "px";
       }
+
+      // FUNCTION 3: picks the next color every time the ball bounces
+      function changeColor () {
+        colorIndex = (colorIndex + 1) % colors.length;
+        ball.style.background = colors[colorIndex];
+      }
+
+      // FUNCTION 2: prints the info to the console
       function showInfo () {
         console.log(nameObj, speed, moving);
-        
       }
+
       showInfo();
-      setInterval(moveBall,20);
+      setInterval(moveball, 20);
 
     </script>
   </body>
